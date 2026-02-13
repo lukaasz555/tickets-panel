@@ -1,3 +1,3 @@
 <template>
-  <div>TODO</div>
+  <router-view />
 </template>
