@@ -1,5 +1,5 @@
 <template>
-  <div>TODO TICKET - {{ $route.params.id }}</div>
+  <div class="ticket-view">TODO TICKET - {{ $route.params.id }}</div>
 </template>
 
 <script setup lang="ts">
@@ -9,7 +9,6 @@ import { getTicketById } from '../services/tickets.service';
 import { Ticket } from '../models';
 
 const route = useRoute();
-
 const ticket = ref<Ticket | null>(null);
 
 watch(
@@ -21,3 +20,8 @@ watch(
   { immediate: true }
 );
 </script>
+
+<style scoped lang="scss">
+.ticket-view {
+}
+</style>

@@ -1,7 +1,7 @@
+import { TicketStatus } from '../enums';
 import { defineStore } from 'pinia';
 import { getTickets } from '../services/tickets.service';
 import { Ticket } from '../models';
-import type { TicketStatus } from '../enums';
 
 interface TicketStoreState {
   tickets: Ticket[];
