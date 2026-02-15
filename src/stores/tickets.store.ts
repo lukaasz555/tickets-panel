@@ -5,12 +5,12 @@ import { Ticket } from '../models';
 
 interface TicketStoreState {
   tickets: Ticket[];
-  selectedStatuses: TicketStatus[];
+  selectedStatus: TicketStatus | null;
 }
 
 const baseState = (): TicketStoreState => ({
   tickets: [],
-  selectedStatuses: []
+  selectedStatus: null
 });
 
 export const useTicketsStore = defineStore('tickets', {
@@ -24,15 +24,18 @@ export const useTicketsStore = defineStore('tickets', {
       if (ticket) {
         ticket.setStatus(newStatus);
       }
+    },
+    updateSelectedStatuses(status: TicketStatus | null) {
+      this.selectedStatus = status;
     }
   },
   getters: {
     filteredTickets: (state) => {
-      if (!state.selectedStatuses.length) {
+      if (!state.selectedStatus) {
         return state.tickets;
       }
-      return state.tickets.filter((ticket) =>
-        state.selectedStatuses.includes(ticket.status)
+      return state.tickets.filter(
+        (ticket) => ticket.status === state.selectedStatus
       );
     }
   }
