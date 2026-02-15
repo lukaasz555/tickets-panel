@@ -9,4 +9,8 @@ export class Ticket {
   priority: TicketPriority = TicketPriority.LOW;
   status: TicketStatus = TicketStatus.NEW;
   createdAt = DateTime.now();
+
+  setStatus(newStatus: TicketStatus) {
+    this.status = newStatus;
+  }
 }
