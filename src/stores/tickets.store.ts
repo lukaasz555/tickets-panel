@@ -22,7 +22,7 @@ export const useTicketsStore = defineStore('tickets', {
     async updateTicketStatus(ticketId: number, newStatus: TicketStatus) {
       const ticket = this.tickets.find((x) => x.id === ticketId);
       if (ticket) {
-        ticket.setStatus(newStatus);
+        ticket.status = newStatus;
       }
     },
     updateSelectedStatuses(status: TicketStatus | null) {

@@ -2,7 +2,7 @@
   <Select
     v-model="ticketsStore.selectedStatus"
     :options="selectItems"
-    label="Wybierz status"
+    label="Filtruj wg statusu"
     @update:model-value="ticketsStore.updateSelectedStatuses"
   />
 </template>
