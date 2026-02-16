@@ -22,5 +22,6 @@ onMounted(() => {
 .tickets-view {
   display: flex;
   flex-direction: column;
+  gap: vars.$margin-xl;
 }
 </style>

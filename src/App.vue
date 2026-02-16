@@ -6,8 +6,7 @@
 
 <style scoped lang="scss">
 .layout {
-  background-color: vars.$background-light;
-  padding: vars.$padding-l;
-  border-radius: vars.$radius-m;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 </style>
