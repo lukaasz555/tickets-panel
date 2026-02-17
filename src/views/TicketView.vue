@@ -1,8 +1,24 @@
 <template>
   <div class="ticket-view">
-    <div v-if="!ticket" class="ticket-view__loading">Ładowanie...</div>
+    <div v-if="ticketsStore.isLoading" class="ticket-view__loading">
+      <Spinner size="lg" />
+    </div>
 
-    <div v-else class="ticket-view__container">
+    <div v-else-if="ticketsStore.error" class="ticket-view__error">
+      <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
+        <path
+          d="M10 6v4m0 4h.01M19 10a9 9 0 11-18 0 9 9 0 0118 0z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <p class="ticket-view__error-message">{{ ticketsStore.error }}</p>
+      <Button variant="outlined" @click="goBack">Wróć do listy</Button>
+    </div>
+
+    <div v-else-if="ticket" class="ticket-view__container">
       <div class="ticket-view__header">
         <Button @click="goBack" variant="outlined">
           <template #icon>
@@ -37,9 +53,9 @@
           </div>
           <div class="ticket-view__info-item">
             <span class="ticket-view__info-label">Data utworzenia</span>
-            <span class="ticket-view__info-value">{{
-              ticket.createdAt.toFormat('d LLLL yyyy, HH:mm')
-            }}</span>
+            <span class="ticket-view__info-value">
+              {{ ticket.createdAt.toFormat('d LLLL yyyy, HH:mm') }}
+            </span>
           </div>
         </div>
 
@@ -72,6 +88,7 @@ import { useTicketsStore } from '../stores/tickets.store';
 import { Ticket } from '../models';
 import TicketPriorityBadge from '../components/tickets/TicketPriorityBadge.vue';
 import TicketStatusBadge from '../components/tickets/TicketStatusBadge.vue';
+import Spinner from '../components/UI/Spinner.vue';
 import Select from '../components/UI/Select.vue';
 import Button from '../components/UI/Button.vue';
 
@@ -113,12 +130,34 @@ const updateStatus = () => {
 <style scoped lang="scss">
 .ticket-view {
   &__loading {
+    min-height: 300px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: vars.$background-light;
+    border-radius: vars.$radius-l;
+    box-shadow: vars.$shadow-md;
+    color: vars.$priority-high;
+  }
+
+  &__error {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 400px;
-    font-size: vars.$font-size-l;
+    gap: vars.$margin-l;
+    min-height: 300px;
+    background-color: vars.$background-light;
+    border-radius: vars.$radius-l;
+    box-shadow: vars.$shadow-md;
+    color: vars.$priority-high;
+  }
+
+  &__error-message {
+    font-size: vars.$font-size-m;
+    font-weight: 500;
     color: vars.$text-secondary;
+    margin: 0;
   }
 
   &__container {

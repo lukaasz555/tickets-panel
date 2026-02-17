@@ -5,6 +5,8 @@
         <SimpleTable
           :headers="ticketsHeaders"
           :items="ticketsStore.filteredTickets"
+          :isLoading="ticketsStore.isLoading"
+          :error="ticketsStore.error"
           @rowClick="showTicketDetails"
         >
           <template #id="{ item: { id } }">
@@ -26,6 +28,7 @@
 
 <script setup lang="ts">
 import type { Ticket } from '../../models';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { RouteName } from '../../enums';
 import { ticketsHeaders } from '../../data/tickets.headers';
@@ -37,9 +40,12 @@ import SimpleTable from '../UI/SimpleTable.vue';
 
 const router = useRouter();
 const ticketsStore = useTicketsStore();
-
 const showTicketDetails = (ticket: Ticket) =>
   router.push({ name: RouteName.TICKET, params: { id: ticket.id } });
+
+onMounted(() => {
+  ticketsStore.fetchTickets();
+});
 </script>
 
 <style scoped lang="scss">
