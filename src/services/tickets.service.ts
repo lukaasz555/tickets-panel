@@ -10,7 +10,8 @@ const getTicketsFromLS = () => {
 
   try {
     const parsed = JSON.parse(ticketsLs) as TicketStoreState;
-    return parsed.tickets as unknown as TicketDto[];
+    const resTickets = parsed.tickets as unknown as TicketDto[];
+    return resTickets.length ? resTickets : null;
   } catch (err) {
     return null;
   }
@@ -20,12 +21,12 @@ export async function getTickets(shouldFail = false): Promise<Ticket[]> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldFail) {
-        reject(new Error('Failed to fetch tickets'));
+        reject(new Error('Nie udało się pobrać zgłoszeń'));
       }
       const tickets = getTicketsFromLS() ?? mockTickets;
       const result = tickets.map((x) => new Ticket().fromDto(x));
       resolve(result);
-    }, 500);
+    }, 700);
   });
 }
 
@@ -39,7 +40,7 @@ export async function getTicketById(
         const transformed = new Ticket().fromDto(ticket);
         resolve(transformed);
       }
-      reject(new Error('Ticket not found'));
-    }, 500);
+      reject(new Error('Nie znaleziono zgłoszenia o podanym ID'));
+    }, 700);
   });
 }
