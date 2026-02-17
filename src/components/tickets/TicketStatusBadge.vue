@@ -1,6 +1,9 @@
 <template>
   <div class="badge-container">
-    <span class="badge-container__badge" :class="`badge-container__badge--${status}`">
+    <span
+      class="badge-container__badge"
+      :class="`badge-container__badge--${status} badge-container__badge--${size}`"
+    >
       {{ getStatusLabel(status) }}
     </span>
   </div>
@@ -13,6 +16,7 @@ import { getStatusLabel } from '../../helpers';
 
 const props = defineProps({
   status: { type: String as PropType<TicketStatus>, required: true },
+  size: { type: String as PropType<'sm' | 'md'>, default: 'md' },
 });
 </script>
 
@@ -24,12 +28,21 @@ const props = defineProps({
 
   &__badge {
     display: inline-block;
-    padding: vars.$padding-xs vars.$padding-m;
     border-radius: vars.$radius-s;
     font-size: vars.$font-size-s;
     font-weight: 500;
     text-transform: capitalize;
     white-space: nowrap;
+
+    &--sm {
+      padding: vars.$padding-xs vars.$padding-m;
+      font-size: vars.$font-size-s;
+    }
+
+    &--md {
+      padding: vars.$padding-s vars.$padding-l;
+      font-size: vars.$font-size-m;
+    }
 
     &--new {
       background-color: vars.$status-new-bg;

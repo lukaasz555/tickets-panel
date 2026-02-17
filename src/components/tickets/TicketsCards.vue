@@ -12,7 +12,7 @@
     >
       <div class="tickets-card-list__card-top">
         <span class="tickets-card-list__card-id">#{{ ticket.id }}</span>
-        <TicketStatusBadge :status="ticket.status" />
+        <TicketStatusBadge :status="ticket.status" size="sm" />
       </div>
 
       <div class="tickets-card-list__card-body">
@@ -21,7 +21,7 @@
       </div>
 
       <div class="tickets-card-list__card-footer">
-        <TicketPriorityBadge :priority="ticket.priority" />
+        <TicketPriorityBadge :priority="ticket.priority" size="sm" />
         <span class="tickets-card-list__card-date">{{
           ticket.createdAt.toFormat('dd MMM yyyy')
         }}</span>

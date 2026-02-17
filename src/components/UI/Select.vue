@@ -68,17 +68,14 @@ const selectedLabel = computed(() => {
   return selected?.label || 'Wybierz opcję';
 });
 
-const toggleDropdown = () => {
-  isOpen.value = !isOpen.value;
-};
+const toggleDropdown = () => isOpen.value = !isOpen.value;
+
 
 const selectOption = (value: T) => {
   emit('update:modelValue', value);
   isOpen.value = false;
 };
 
-
-// TODO vueuse composable for this logic
 const handleClickOutside = (event: MouseEvent) => {
   if (selectRef.value && !selectRef.value.contains(event.target as Node)) {
     isOpen.value = false;

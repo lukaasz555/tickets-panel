@@ -11,10 +11,10 @@
             <span style="font-weight: 600">#{{ id }}</span>
           </template>
           <template #status="{ item: { status } }">
-            <TicketStatusBadge :status="status" />
+            <TicketStatusBadge :status="status" size="sm" />
           </template>
           <template #priority="{ item: { priority } }">
-            <TicketPriorityBadge :priority="priority" />
+            <TicketPriorityBadge :priority="priority" size="sm" />
           </template>
         </SimpleTable>
       </div>
