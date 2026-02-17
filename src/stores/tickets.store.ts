@@ -1,16 +1,16 @@
 import { TicketStatus } from '../enums';
 import { defineStore } from 'pinia';
-import { getTickets } from '../services/tickets.service';
+import { getTicketById, getTickets } from '../services/tickets.service';
 import { Ticket } from '../models';
 
 interface TicketStoreState {
   tickets: Ticket[];
-  selectedStatuses: TicketStatus[];
+  selectedStatus: TicketStatus | null;
 }
 
 const baseState = (): TicketStoreState => ({
   tickets: [],
-  selectedStatuses: []
+  selectedStatus: null
 });
 
 export const useTicketsStore = defineStore('tickets', {
@@ -19,20 +19,33 @@ export const useTicketsStore = defineStore('tickets', {
     async fetchTickets() {
       this.tickets = await getTickets();
     },
-    async updateTicketStatus(ticketId: number, newStatus: TicketStatus) {
+    updateTicketStatus(ticketId: number, newStatus: TicketStatus) {
       const ticket = this.tickets.find((x) => x.id === ticketId);
       if (ticket) {
-        ticket.setStatus(newStatus);
+        ticket.status = newStatus;
       }
+    },
+    updateSelectedStatuses(status: TicketStatus | null) {
+      this.selectedStatus = status;
+    },
+    async getTicketById(ticketId: number): Promise<Ticket | undefined> {
+      let ticket = this.tickets.find((x) => x.id === ticketId);
+      if (!ticket) {
+        ticket = await getTicketById(ticketId);
+        if (ticket) {
+          this.tickets.push(ticket);
+        }
+      }
+      return ticket;
     }
   },
   getters: {
     filteredTickets: (state) => {
-      if (!state.selectedStatuses.length) {
+      if (!state.selectedStatus) {
         return state.tickets;
       }
-      return state.tickets.filter((ticket) =>
-        state.selectedStatuses.includes(ticket.status)
+      return state.tickets.filter(
+        (ticket) => ticket.status === state.selectedStatus
       );
     }
   }

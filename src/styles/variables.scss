@@ -1,23 +1,98 @@
+// $font-size-xs: 11px;
+// $font-size-s: 13px;
+// $font-size-m: 16px;
+// $font-size-l: 20px;
+// $font-size-xl: 24px;
+
+// $padding-xs: 4px;
+// $padding-s: 8px;
+// $padding-m: 12px;
+// $padding-l: 16px;
+
+// $margin-xs: 4px;
+// $margin-s: 8px;
+// $margin-m: 12px;
+// $margin-l: 16px;
+
+// $radius-xs: 4px;
+// $radius-s: 8px;
+// $radius-m: 12px;
+// $radius-l: 16px;
+
+// $background-color: #eeeded;
+// $background-light: #fcfcfc;
+
 $font-size-xs: 11px;
 $font-size-s: 13px;
 $font-size-m: 16px;
 $font-size-l: 20px;
 $font-size-xl: 24px;
+$font-size-xxl: 32px;
 
 $padding-xs: 4px;
 $padding-s: 8px;
 $padding-m: 12px;
 $padding-l: 16px;
+$padding-xl: 24px;
 
 $margin-xs: 4px;
 $margin-s: 8px;
 $margin-m: 12px;
 $margin-l: 16px;
+$margin-xl: 24px;
 
 $radius-xs: 4px;
 $radius-s: 8px;
 $radius-m: 12px;
 $radius-l: 16px;
+$radius-xl: 20px;
 
-$background-color: #eeeded;
-$background-light: #fcfcfc;
+$background-color: #f5f5f7;
+$background-light: #ffffff;
+$background-hover: #f9fafb;
+
+// Primary colors
+$primary-color: #6366f1;
+$primary-hover: #4f46e5;
+$primary-light: #eef2ff;
+
+// Text colors
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$text-muted: #9ca3af;
+
+$border-color: #e5e7eb;
+$border-hover: #d1d5db;
+
+$status-new: #3b82f6;
+$status-new-bg: #eff6ff;
+$status-new-border: #bfdbfe;
+
+$status-in-progress: #f97316;
+$status-in-progress-bg: #fff7ed;
+$status-in-progress-border: #fed7aa;
+
+$status-closed: #10b981;
+$status-closed-bg: #f0fdf4;
+$status-closed-border: #bbf7d0;
+
+$priority-low: #6b7280;
+$priority-low-bg: #f9fafb;
+$priority-low-border: #d1d5db;
+
+$priority-medium: #eab308;
+$priority-medium-bg: #fefce8;
+$priority-medium-border: #fde047;
+
+$priority-high: #ef4444;
+$priority-high-bg: #fef2f2;
+$priority-high-border: #fecaca;
+
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+$transition-fast: 150ms ease-in-out;
+$transition-normal: 250ms ease-in-out;
+
+$breakpoint-mobile: 768px;

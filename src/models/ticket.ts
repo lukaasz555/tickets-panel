@@ -1,4 +1,6 @@
+import type { TicketDto } from '../dtos';
 import { TicketPriority, TicketStatus } from '../enums';
+import { parseIsoDateToDateTime } from '../helpers';
 import { DateTime } from 'luxon';
 
 export class Ticket {
@@ -10,7 +12,14 @@ export class Ticket {
   status: TicketStatus = TicketStatus.NEW;
   createdAt = DateTime.now();
 
-  setStatus(newStatus: TicketStatus) {
-    this.status = newStatus;
+  fromDto(dto: TicketDto): Ticket {
+    this.id = dto.id;
+    this.customerName = dto.customerName;
+    this.subject = dto.subject;
+    this.description = dto.description;
+    this.priority = dto.priority;
+    this.status = dto.status;
+    this.createdAt = parseIsoDateToDateTime(dto.createdAt);
+    return this;
   }
 }
