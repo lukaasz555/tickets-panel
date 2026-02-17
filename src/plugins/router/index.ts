@@ -11,6 +11,11 @@ const routes = [
     name: RouteName.TICKETS,
     path: '/',
     component: () => import('../../views/TicketsView.vue')
+  },
+  {
+    name: RouteName.NOT_FOUND,
+    path: '/:pathMatch(.*)*',
+    component: () => import('../../views/NotFoundView.vue')
   }
 ];
 

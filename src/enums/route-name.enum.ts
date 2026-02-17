@@ -1,4 +1,5 @@
 export enum RouteName {
   TICKETS = 'tickets',
-  TICKET = 'ticket'
+  TICKET = 'ticket',
+  NOT_FOUND = 'not-found'
 }
