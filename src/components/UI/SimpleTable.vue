@@ -2,7 +2,15 @@
   <table class="simple-table">
     <thead>
       <tr>
-        <th v-for="{ value, label } in headers" :key="value">{{ label }}</th>
+        <th v-for="{ value, label, align } in headers" :key="value">
+          <p
+            :style="{
+              textAlign: align,
+            }"
+          >
+            {{ label }}
+          </p>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -12,11 +20,14 @@
         class="simple-table__row"
         @click="onRowClick(item)"
       >
-        <td v-for="{ value } in headers" :key="String(value)">
-          <slot :name="value" :item="item" :value="getValue(item, value)">
-            {{ getValue(item, value) }}
+        <td v-for="{ value } in headers" :key="String(item[value])">
+          <slot :name="value" :item="item" :value="item[value]">
+            {{ item[value] }}
           </slot>
         </td>
+      </tr>
+      <tr v-if="!items.length">
+        <td :colspan="headers.length" class="simple-table__empty">{{ noItemsText }}</td>
       </tr>
     </tbody>
   </table>
@@ -41,13 +52,12 @@ const props = defineProps({
   items: {
     type: Array as () => T[],
     required: true,
-  }
+  },
+  noItemsText: {
+    type: String,
+    default: 'Lista jest pusta',
+  },
 });
-
-const getValue = (item: T, key: keyof T | 'actions') => {
-  if (key === 'actions') return null;
-  return item[key as keyof T];
-};
 
 type TableSlots = {
   [K in keyof T]?: (props: { item: T; value: T[K] }) => unknown;
@@ -69,6 +79,7 @@ const onRowClick = (item: T) => {
   box-shadow: vars.$shadow-md;
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 
   thead {
     background-color: vars.$primary-light;
@@ -103,6 +114,11 @@ const onRowClick = (item: T) => {
         padding: vars.$padding-l;
         font-size: vars.$font-size-m;
         color: vars.$text-primary;
+        &.simple-table__empty {
+          text-align: center;
+          color: vars.$text-muted;
+          font-style: italic;
+        }
       }
     }
   }

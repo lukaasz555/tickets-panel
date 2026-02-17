@@ -16,10 +16,12 @@ export const ticketsHeaders: TableHeader<Ticket>[] = [
   },
   {
     value: 'status',
-    label: 'Status'
+    label: 'Status',
+    align: 'center'
   },
   {
     value: 'priority',
-    label: 'Priorytet'
+    label: 'Priorytet',
+    align: 'center'
   }
 ];

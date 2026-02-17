@@ -1,25 +1,57 @@
 <template>
   <div class="tickets-list">
-    <TicketsListItem
-      v-for="ticket in ticketsStore.filteredTickets"
-      :key="ticket.id"
-      :ticket="ticket"
-    />
+    <div>
+      <div class="tickets-list__table">
+        <SimpleTable
+          :headers="ticketsHeaders"
+          :items="ticketsStore.filteredTickets"
+          @rowClick="showTicketDetails"
+        >
+          <template #id="{ item: { id } }">
+            <span style="font-weight: 600">#{{ id }}</span>
+          </template>
+          <template #status="{ item: { status } }">
+            <TicketStatusBadge :status="status" />
+          </template>
+          <template #priority="{ item: { priority } }">
+            <TicketPriorityBadge :priority="priority" />
+          </template>
+        </SimpleTable>
+      </div>
+
+      <TicketsCards @card-click="showTicketDetails" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Ticket } from '../../models';
+import { useRouter } from 'vue-router';
+import { RouteName } from '../../enums';
+import { ticketsHeaders } from '../../data/tickets.headers';
 import { useTicketsStore } from '../../stores/tickets.store';
-import TicketsListItem from './TicketsListItem.vue';
+import TicketPriorityBadge from './TicketPriorityBadge.vue';
+import TicketStatusBadge from './TicketStatusBadge.vue';
+import TicketsCards from './TicketsCards.vue';
+import SimpleTable from '../UI/SimpleTable.vue';
 
+const router = useRouter();
 const ticketsStore = useTicketsStore();
+
+const showTicketDetails = (ticket: Ticket) =>
+  router.push({ name: RouteName.TICKET, params: { id: ticket.id } });
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .tickets-list {
-  display: flex;
-  flex-direction: column;
-  margin-top: vars.$margin-s;
-  row-gap: vars.$margin-s;
+  margin-top: vars.$margin-xl;
+
+  &__table {
+    display: none;
+
+    @media (min-width: vars.$breakpoint-mobile) {
+      display: block;
+    }
+  }
 }
 </style>
