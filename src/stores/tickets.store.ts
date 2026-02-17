@@ -1,6 +1,6 @@
 import { TicketStatus } from '../enums';
 import { defineStore } from 'pinia';
-import { getTickets } from '../services/tickets.service';
+import { getTicketById, getTickets } from '../services/tickets.service';
 import { Ticket } from '../models';
 
 interface TicketStoreState {
@@ -19,7 +19,7 @@ export const useTicketsStore = defineStore('tickets', {
     async fetchTickets() {
       this.tickets = await getTickets();
     },
-    async updateTicketStatus(ticketId: number, newStatus: TicketStatus) {
+    updateTicketStatus(ticketId: number, newStatus: TicketStatus) {
       const ticket = this.tickets.find((x) => x.id === ticketId);
       if (ticket) {
         ticket.status = newStatus;
@@ -27,6 +27,16 @@ export const useTicketsStore = defineStore('tickets', {
     },
     updateSelectedStatuses(status: TicketStatus | null) {
       this.selectedStatus = status;
+    },
+    async getTicketById(ticketId: number): Promise<Ticket | undefined> {
+      let ticket = this.tickets.find((x) => x.id === ticketId);
+      if (!ticket) {
+        ticket = await getTicketById(ticketId);
+        if (ticket) {
+          this.tickets.push(ticket);
+        }
+      }
+      return ticket;
     }
   },
   getters: {

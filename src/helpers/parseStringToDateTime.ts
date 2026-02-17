@@ -1,7 +1,10 @@
 import { DateTime } from 'luxon';
 
 export const parseIsoDateToDateTime = (dateIso: string): DateTime<true> => {
-  const parsed = DateTime.fromISO(dateIso, { zone: 'Europe/Warsaw' });
+  const parsed = DateTime.fromISO(dateIso, {
+    zone: 'Europe/Warsaw',
+    locale: 'pl'
+  });
   if (!parsed.isValid) {
     throw new Error(`Invalid date string: ${dateIso}`);
   }

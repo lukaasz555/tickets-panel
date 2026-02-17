@@ -9,7 +9,7 @@ export async function getTickets(shouldFail = false): Promise<Ticket[]> {
       }
       const tickets = mockTickets.map((x) => new Ticket().fromDto(x));
       resolve(tickets);
-    }, 1500);
+    }, 500);
   });
 }
 
@@ -24,6 +24,6 @@ export async function getTicketById(
         resolve(transformed);
       }
       reject(new Error('Ticket not found'));
-    }, 1500);
+    }, 500);
   });
 }
