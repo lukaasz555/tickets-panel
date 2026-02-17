@@ -37,9 +37,9 @@
           </div>
           <div class="ticket-view__info-item">
             <span class="ticket-view__info-label">Data utworzenia</span>
-            <span class="ticket-view__info-value">{{
-              ticket.createdAt.toFormat('d LLLL yyyy, HH:mm')
-            }}</span>
+            <span class="ticket-view__info-value">
+              {{ ticket.createdAt.toFormat('d LLLL yyyy, HH:mm') }}
+            </span>
           </div>
         </div>
 

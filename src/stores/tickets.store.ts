@@ -2,8 +2,10 @@ import { TicketStatus } from '../enums';
 import { defineStore } from 'pinia';
 import { getTicketById, getTickets } from '../services/tickets.service';
 import { Ticket } from '../models';
+import { LocalStorage } from '../enums/local-storage.enum';
+import { parseIsoDateToDateTime } from '../helpers';
 
-interface TicketStoreState {
+export interface TicketStoreState {
   tickets: Ticket[];
   selectedStatus: TicketStatus | null;
 }
@@ -15,6 +17,16 @@ const baseState = (): TicketStoreState => ({
 
 export const useTicketsStore = defineStore('tickets', {
   state: baseState,
+  persist: {
+    key: LocalStorage.TICKETS,
+    pick: ['tickets'],
+    afterHydrate: (ctx) => {
+      ctx.store.tickets = ctx.store.tickets.map((ticket: Ticket) => ({
+        ...ticket,
+        createdAt: parseIsoDateToDateTime(ticket.createdAt as unknown as string)
+      }));
+    }
+  },
   actions: {
     async fetchTickets() {
       this.tickets = await getTickets();

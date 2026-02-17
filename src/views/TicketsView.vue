@@ -14,10 +14,7 @@ import { useTicketsStore } from '../stores/tickets.store';
 const ticketsStore = useTicketsStore();
 
 onMounted(() => {
-  // TODO - get rid of this - it's temp. to see updated UI
-  if (!ticketsStore.tickets.length) {
-    ticketsStore.fetchTickets();
-  }
+  ticketsStore.fetchTickets();
 });
 </script>
 

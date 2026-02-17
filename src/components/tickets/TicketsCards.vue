@@ -22,9 +22,9 @@
 
       <div class="tickets-card-list__card-footer">
         <TicketPriorityBadge :priority="ticket.priority" size="sm" />
-        <span class="tickets-card-list__card-date">{{
-          ticket.createdAt.toFormat('dd MMM yyyy')
-        }}</span>
+        <span class="tickets-card-list__card-date">
+          {{ ticket.createdAt.toFormat('dd MMM yyyy') }}
+        </span>
       </div>
     </div>
   </div>
@@ -32,9 +32,9 @@
 
 <script setup lang="ts">
 import type { Ticket } from '../../models';
+import { useTicketsStore } from '../../stores/tickets.store';
 import TicketStatusBadge from './TicketStatusBadge.vue';
 import TicketPriorityBadge from './TicketPriorityBadge.vue';
-import { useTicketsStore } from '../../stores/tickets.store';
 
 const emit = defineEmits<{
   (e: 'card-click', ticket: Ticket): void;
